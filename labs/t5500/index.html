@@ -1,0 +1,1046 @@
+
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="My personal technical website">
+      
+      
+        <link rel="canonical" href="https://admdwrf.github.io/labs/t5500/">
+      
+      
+        <meta name="author" content="Frederic ALIX">
+      
+      
+        <link rel="shortcut icon" href="../../images/favicon.ico">
+      
+      <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.8.1">
+    
+    
+      
+        <title>Install FreeBSD on Dell T5000 - fredalix.tech</title>
+      
+    
+    
+      <script src="../../assets/javascripts/modernizr-1df76c4e58.js"></script>
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/application-bfecc7305d.css">
+      
+        <link rel="stylesheet" href="../../assets/stylesheets/application-02c2a4388f.palette.css">
+      
+    
+    
+      
+        
+        
+        
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+      <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    
+    
+    
+  </head>
+  
+  
+  
+  
+    <body data-md-color-primary="orange" data-md-color-accent="red">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="drawer">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="search">
+    <label class="md-overlay" data-md-component="overlay" for="drawer"></label>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <a href="https://admdwrf.github.io" title="fredalix.tech" class="md-logo md-header-nav__button">
+            <img src="../../images/logo.png" width="24" height="24">
+          </a>
+        
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <span class="md-flex__ellipsis md-header-nav__title">
+          
+            
+              
+                <span class="md-header-nav__parent">
+                  Labs
+                </span>
+              
+            
+            Install FreeBSD on Dell T5000
+          
+        </span>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="search"></label>
+  <div class="md-search__inner">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" required placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query">
+      <label class="md-icon md-search__icon" for="search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset">close</button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result" data-md-lang-search="" data-md-lang-tokenizer="[\s\-]+">
+          <div class="md-search-result__meta" data-md-lang-result-none="No matching documents" data-md-lang-result-one="1 matching document" data-md-lang-result-other="# matching documents">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+      
+        
+
+  
+
+<nav class="md-tabs md-tabs--active" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  <li class="md-tabs__item">
+    
+      <a href="../.." title="Home" class="md-tabs__link">
+        Home
+      </a>
+    
+  </li>
+
+      
+        
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="./" title="Labs" class="md-tabs__link md-tabs__link--active">
+          Labs
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../articles/article/" title="Articles" class="md-tabs__link">
+          Articles
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../blog/blog/" title="Blog" class="md-tabs__link">
+          Blog
+        </a>
+      
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="drawer">
+    
+      <i class="md-logo md-nav__button">
+        <img src="../../images/logo.png">
+      </i>
+    
+    fredalix.tech
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../.." title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../about/" title="About" class="md-nav__link">
+      About
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
+    
+    <label class="md-nav__link" for="nav-3">
+      Labs
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        Labs
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="toc">
+        Install FreeBSD on Dell T5000
+      </label>
+    
+    <a href="./" title="Install FreeBSD on Dell T5000" class="md-nav__link md-nav__link--active">
+      Install FreeBSD on Dell T5000
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" title="Introduction" class="md-nav__link">
+    Introduction
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installation" title="Installation" class="md-nav__link">
+    Installation
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#download-freebsd" title="Download FreeBSD" class="md-nav__link">
+    Download FreeBSD
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#install-freebsd-111" title="Install FreeBSD 11.1" class="md-nav__link">
+    Install FreeBSD 11.1
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration" title="Configuration" class="md-nav__link">
+    Configuration
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#packages" title="Packages" class="md-nav__link">
+    Packages
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bash-tmux" title="bash &amp; tmux" class="md-nav__link">
+    bash &amp; tmux
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xorg" title="Xorg" class="md-nav__link">
+    Xorg
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fonts" title="Fonts" class="md-nav__link">
+    Fonts
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#others" title="Others" class="md-nav__link">
+    Others
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#locales" title="Locales" class="md-nav__link">
+    Locales
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#set-bash-at-default-shell-for-fralix-account" title="Set bash at default shell for fralix account" class="md-nav__link">
+    Set bash at default shell for fralix account
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configure-etcsysctlconf" title="Configure /etc/sysctl.conf" class="md-nav__link">
+    Configure /etc/sysctl.conf
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configure-bootloaderconf" title="Configure /boot/loader.conf" class="md-nav__link">
+    Configure /boot/loader.conf
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configure-etcrcconf" title="Configure /etc/rc.conf" class="md-nav__link">
+    Configure /etc/rc.conf
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configure-procfs" title="Configure /procfs" class="md-nav__link">
+    Configure /procfs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configure-automount" title="Configure automount" class="md-nav__link">
+    Configure automount
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xorg_1" title="Xorg" class="md-nav__link">
+    Xorg
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../ajout_disque_geli_zfs_sdd_l2arc_zil/" title="Add Hard Drive with cache on SSD" class="md-nav__link">
+      Add Hard Drive with cache on SSD
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../graylog/" title="Install graylog server" class="md-nav__link">
+      Install graylog server
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      Articles
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        Articles
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../articles/article/" title="Create a server" class="md-nav__link">
+      Create a server
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../articles/article2/" title="Delete a server" class="md-nav__link">
+      Delete a server
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-3" type="checkbox" id="nav-4-3">
+    
+    <label class="md-nav__link" for="nav-4-3">
+      Divers
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-3">
+        Divers
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../blog/blog/" title="Autre info" class="md-nav__link">
+      Autre info
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      Blog
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        Blog
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../blog/blog/" title="Billet du jour" class="md-nav__link">
+      Billet du jour
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" title="Introduction" class="md-nav__link">
+    Introduction
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installation" title="Installation" class="md-nav__link">
+    Installation
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#download-freebsd" title="Download FreeBSD" class="md-nav__link">
+    Download FreeBSD
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#install-freebsd-111" title="Install FreeBSD 11.1" class="md-nav__link">
+    Install FreeBSD 11.1
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration" title="Configuration" class="md-nav__link">
+    Configuration
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#packages" title="Packages" class="md-nav__link">
+    Packages
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bash-tmux" title="bash &amp; tmux" class="md-nav__link">
+    bash &amp; tmux
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xorg" title="Xorg" class="md-nav__link">
+    Xorg
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fonts" title="Fonts" class="md-nav__link">
+    Fonts
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#others" title="Others" class="md-nav__link">
+    Others
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#locales" title="Locales" class="md-nav__link">
+    Locales
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#set-bash-at-default-shell-for-fralix-account" title="Set bash at default shell for fralix account" class="md-nav__link">
+    Set bash at default shell for fralix account
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configure-etcsysctlconf" title="Configure /etc/sysctl.conf" class="md-nav__link">
+    Configure /etc/sysctl.conf
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configure-bootloaderconf" title="Configure /boot/loader.conf" class="md-nav__link">
+    Configure /boot/loader.conf
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configure-etcrcconf" title="Configure /etc/rc.conf" class="md-nav__link">
+    Configure /etc/rc.conf
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configure-procfs" title="Configure /procfs" class="md-nav__link">
+    Configure /procfs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configure-automount" title="Configure automount" class="md-nav__link">
+    Configure automount
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xorg_1" title="Xorg" class="md-nav__link">
+    Xorg
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="install-freebsd-on-dell-t5000">Install FreeBSD on Dell T5000<a class="headerlink" href="#install-freebsd-on-dell-t5000" title="Permanent link">&para;</a></h1>
+<h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h2>
+<p>Two months ago, I bought a Dell Precision T5500 Workstation on ebay.
+For less than two hundred euros, I had a Xeon hexa core, twelve giga byte of RAM, a 250 gb hard drive and a Nvidia Quattro graphic cards.
+I added to it a PCI-e SATAIII card, two SSD ( one of 128 GB and another of 250 Gb), one hard drive of 1 TB, a wifi pci card, and I replaced the graphic card with an Nvidia GeForce GT 710.
+Now it's time to install and configure FreeBSD on it.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+</div>
+<p>For info, big thank you to Olivier Cochard-Labbé and Allison Nicole Reid for all good informations I found on their websites
+http://olivier.cochard.me/bidouillage/installation-et-configuration-de-freebsd-comme-poste-de-travail
+https://cooltrainer.org/a-freebsd-desktop-howto/</p>
+<h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h2>
+<h3 id="download-freebsd">Download FreeBSD<a class="headerlink" href="#download-freebsd" title="Permanent link">&para;</a></h3>
+<p>I downloaded FreeBSD 11.1 on mirror at:
+<strong>[TODO] Write the download link here</strong></p>
+<p>I used dd to put the image on USB stick</p>
+<div class="codehilite"><pre><span></span>dd if=**imagedisk** of=/dev/sdc bs=1024
+</pre></div>
+
+
+<h3 id="install-freebsd-111">Install FreeBSD 11.1<a class="headerlink" href="#install-freebsd-111" title="Permanent link">&para;</a></h3>
+<p>I'll don't describe here how to install FreeBSD.
+Read the official doc to do it.</p>
+<h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h2>
+<h3 id="packages">Packages<a class="headerlink" href="#packages" title="Permanent link">&para;</a></h3>
+<p>Frist, I need to install sudo and add my user in priviliged list</p>
+<div class="codehilite"><pre><span></span>pkg install -y sudo
+</pre></div>
+
+
+<p>And add my fralix user</p>
+<div class="codehilite"><pre><span></span>visudo
+
+######################
+%fralix ALL=(ALL) NOPASSWD: ALL
+######################
+</pre></div>
+
+
+<p>I installed all theses packages before to start to configure the system:</p>
+<h4 id="bash-tmux">bash &amp; tmux<a class="headerlink" href="#bash-tmux" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span>pkg install -y bash tmux
+</pre></div>
+
+
+<h4 id="xorg">Xorg<a class="headerlink" href="#xorg" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span>pkg install -y xorg
+</pre></div>
+
+
+<h4 id="fonts">Fonts<a class="headerlink" href="#fonts" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span>pkg install -y chinese/arphicttf chinese/font-std hebrew/culmus hebrew/elmar-fonts japanese/font-ipa japanese/font-ipa-uigothic japanese/font-ipaex japanese/font-kochi japanese/font-migmix japanese/font-migu japanese/font-mona-ipa japanese/font-motoya-al japanese/font-mplus-ipa japanese/font-sazanami japanese/font-shinonome japanese/font-takao japanese/font-ume japanese/font-vlgothic x11-fonts/hanazono-fonts-ttf japanese/font-mikachan korean/aleefonts-ttf korean/nanumfonts-ttf korean/unfonts-core x11-fonts/anonymous-pro x11-fonts/artwiz-aleczapka x11-fonts/dejavu x11-fonts/inconsolata-ttf x11-fonts/terminus-font x11-fonts/cantarell-fonts x11-fonts/droid-fonts-ttf x11-fonts/doulos x11-fonts/ubuntu-font x11-fonts/isabella x11-fonts/ecofont x11-fonts/junicode x11-fonts/khmeros x11-fonts/padauk x11-fonts/stix-fonts x11-fonts/charis x11-fonts/urwfonts-ttf russian/koi8r-ps x11-fonts/geminifonts x11-fonts/cyr-rfx x11-fonts/paratype x11-fonts/gentium-plus urwfonts bitstream-vera webfonts
+</pre></div>
+
+
+<h4 id="others">Others<a class="headerlink" href="#others" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span>pkg install -y devcpu-data ca_root_nss xscreensaver git firefox firefox-i18n chromium libreoffice cups cups-filters gnome3 dia hexchat mumble vlc thunderbird automount  fusefs-ntfs gimp password-store
+</pre></div>
+
+
+<h3 id="locales">Locales<a class="headerlink" href="#locales" title="Permanent link">&para;</a></h3>
+<p>Put this two lines into the default section in <code>/etc/login.conf</code>:</p>
+<p>**
+:charset=UTF-8:\
+:lang=en_US.UTF-8:\
+**</p>
+<p>Rebuild the login database:</p>
+<div class="codehilite"><pre><span></span>sudo cap_mkdb /etc/login.conf
+</pre></div>
+
+
+<p>Modify <code>/etc/profile</code></p>
+<div class="codehilite"><pre><span></span>vi /etc/profile
+
+LANG=en_US.UTF-8;   export LANG
+CHARSET=UTF-8;  export CHARSET
+</pre></div>
+
+
+<h3 id="set-bash-at-default-shell-for-fralix-account">Set bash at default shell for fralix account<a class="headerlink" href="#set-bash-at-default-shell-for-fralix-account" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span>sudo chsh -s /usr/local/bin/bash fralix
+</pre></div>
+
+
+<h3 id="configure-etcsysctlconf">Configure /etc/sysctl.conf<a class="headerlink" href="#configure-etcsysctlconf" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span>sudo cat &gt;&gt; /etc/sysctl.conf &lt;&lt;EOF
+kern.vt.enable_bell=0
+hw.syscons.bell=0
+kern.ipc.shmmax=67108864
+kern.ipc.shmall=32768
+kern.sched.preempt_thresh=224
+kern.maxfiles=200000
+hw.syscons.bell=0
+kern.ipc.shm_allow_removed=1
+hw.snd.default_unit=0
+EOF
+</pre></div>
+
+
+<h3 id="configure-bootloaderconf">Configure /boot/loader.conf<a class="headerlink" href="#configure-bootloaderconf" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span>sudo sysrc -f /boot/loader.conf autoboot_delay=2
+sudo sysrc -f /boot/loader.conf kern.ipc.shmseg=1024
+sudo sysrc -f /boot/loader.conf kern.ipc.shmmni=1024
+sudo sysrc -f /boot/loader.conf kern.maxproc=100000
+sudo sysrc -f /boot/loader.conf coretemp_load=&quot;YES&quot;
+sudo sysrc -f /boot/loader.conf tmpfs_load=&quot;YES&quot;
+sudo sysrc -f /boot/loader.conf aio_load=&quot;YES&quot;
+sudo sysrc -f /boot/loader.conf snd_driver_load=&quot;YES&quot;
+sudo sysrc -f /boot/loader.conf fusefs_load=&quot;YES&quot;
+</pre></div>
+
+
+<h3 id="configure-etcrcconf">Configure /etc/rc.conf<a class="headerlink" href="#configure-etcrcconf" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span>sudo sysrc ntpd_sync_on_start=yes
+sudo sysrc kld_list+=smbus
+sudo sysrc microcode_update_enable=YES
+sudo sysrc dbus_enable=YES
+sudo sysrc hald_enable=YES
+sudo sysrc cupsd_enable=YES
+sudo sysrc gdm_enable=&quot;YES&quot;
+sudo sysrc gnome_enable=&quot;YES&quot;
+sudo sysrc fusefs_enable=YES
+sudo sysrc autofs_enable=YES
+sudo sysrc automount_enable=YES
+sudo sysrc automountd_enable=YES
+sudo sysrc autounmountd_enable=YES
+</pre></div>
+
+
+<h3 id="configure-procfs">Configure /procfs<a class="headerlink" href="#configure-procfs" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span>sudo vi /etc/fstab
+
+proc           /proc       procfs  rw  0   0
+</pre></div>
+
+
+<h3 id="configure-automount">Configure automount<a class="headerlink" href="#configure-automount" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span>sudo sed -i &quot;&quot; -e &quot;s/#\/media/\/media/&quot; /etc/auto_master
+
+sudo cat &gt;&gt;/etc/devd.conf &lt;&lt;EOF
+# Discard autofs caches, useful for the -media special map.
+notify 100 {
+        match &quot;system&quot; &quot;GEOM&quot;;
+        match &quot;subsystem&quot; &quot;DEV&quot;;
+        action &quot;/usr/sbin/automount -c&quot;;
+};
+EOF
+</pre></div>
+
+
+<h3 id="xorg_1">Xorg<a class="headerlink" href="#xorg_1" title="Permanent link">&para;</a></h3>
+<p>Download the latest Nvidia driver at http://www.nvidia.com and put the archive NVIDIA-FreeBSD-x86_64-384.59.tar.gz to <code>/var/tmp</code></p>
+<p>Extract the archive and compile/install the nvidia xorg driver</p>
+<div class="codehilite"><pre><span></span>cd /var/tmp
+tar -zxf NVIDIA-FreeBSD-x86_64-384.59.tar.gz
+cd NVIDIA-FreeBSD-x86_64-384.59
+sudo make install -j4
+</pre></div>
+
+
+<p>Configure xorg:</p>
+<div class="codehilite"><pre><span></span>sudo cat &gt; /usr/local/etc/X11/xorg.conf.d/20-video.conf &lt;&lt;EOF
+
+Section &quot;Device&quot;
+
+        Identifier &quot;NVIDIA Card&quot;
+
+        VendorName &quot;NVIDIA Corporation&quot;
+
+        Driver &quot;nvidia&quot;
+
+EndSection
+
+Section &quot;Module&quot;
+        Load           &quot;freetype&quot;
+        Load           &quot;bitmap&quot;
+        Load           &quot;type1&quot;
+        Load           &quot;glx&quot;
+EndSection
+
+
+EOF
+</pre></div>
+                
+                  
+                
+              
+              
+                
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../../about/" title="About" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                About
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../ajout_disque_geli_zfs_sdd_l2arc_zil/" title="Add Hard Drive with cache on SSD" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Add Hard Drive with cache on SSD
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2017 Frederic Alix
+          </div>
+        
+        powered by
+        <a href="http://www.mkdocs.org" title="MkDocs">MkDocs</a>
+        and
+        <a href="http://squidfunk.github.io/mkdocs-material/" title="Material for MkDocs">
+          Material for MkDocs</a>
+      </div>
+      
+        
+  <div class="md-footer-social">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+      <a href="https://github.com/admdwrf" class="md-footer-social__link fa fa-github"></a>
+    
+      <a href="https://twitter.com/fredericalix" class="md-footer-social__link fa fa-twitter"></a>
+    
+      <a href="https://www.linkedin.com/in/fredericalix/" class="md-footer-social__link fa fa-linkedin"></a>
+    
+  </div>
+
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/application-6940329b9f.js"></script>
+      
+      
+      <script>app.initialize({url:{base:"../.."}})</script>
+      
+    
+    
+      
+    
+  </body>
+</html>

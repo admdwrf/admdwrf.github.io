@@ -3,10 +3,72 @@
 
     
     <url>
-     <loc>/</loc>
-     <lastmod>2017-08-04</lastmod>
+     <loc>https://admdwrf.github.io/</loc>
+     <lastmod>2017-08-11</lastmod>
      <changefreq>daily</changefreq>
     </url>
+    
+
+    
+    <url>
+     <loc>https://admdwrf.github.io/about/</loc>
+     <lastmod>2017-08-11</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+        
+    <url>
+     <loc>https://admdwrf.github.io/labs/t5500/</loc>
+     <lastmod>2017-08-11</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>https://admdwrf.github.io/labs/ajout_disque_geli_zfs_sdd_l2arc_zil/</loc>
+     <lastmod>2017-08-11</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>https://admdwrf.github.io/labs/graylog/</loc>
+     <lastmod>2017-08-11</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    
+
+    
+        
+    <url>
+     <loc>https://admdwrf.github.io/articles/article/</loc>
+     <lastmod>2017-08-11</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>https://admdwrf.github.io/articles/article2/</loc>
+     <lastmod>2017-08-11</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>https://admdwrf.github.io</loc>
+     <lastmod></lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    
+
+    
+        
+    <url>
+     <loc>https://admdwrf.github.io/blog/blog/</loc>
+     <lastmod>2017-08-11</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
     
 
 </urlset>
